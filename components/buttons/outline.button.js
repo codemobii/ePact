@@ -6,12 +6,14 @@ export default function OutlineButton({
   onClick = () => {},
   loading = false,
   link = false,
+  color = "white",
+  size = "lg",
 }) {
   return (
     <Button
       fontSize={"sm"}
       fontWeight={"bold"}
-      color={"white"}
+      color={color}
       bg="transparent"
       border="2px"
       borderColor={"green.400"}
@@ -19,13 +21,16 @@ export default function OutlineButton({
       _hover={{
         bg: "green.300",
         borderColor: "green.300",
+        color: "white",
       }}
       _active={{
         bg: "green.500",
+        color: "white",
+        transform: "scale(0.8)",
       }}
       px="50px"
       rounded="full"
-      size="lg"
+      size={size}
       as={link ? "a" : "button"}
       onClick={onClick}
       isLoading={loading}

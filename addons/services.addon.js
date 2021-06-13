@@ -1,7 +1,9 @@
 import { Image } from "@chakra-ui/image";
 import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/layout";
 import { useBreakpoint, useBreakpointValue } from "@chakra-ui/media-query";
+import { Center } from "@chakra-ui/react";
 import React from "react";
+import MainButton from "../components/buttons/main.button";
 import BgIllustration from "../components/helpers/bg_illus.helper";
 import TitleHelper from "../components/helpers/title.helper";
 import BoxContainer from "../components/layouts/container.layout";
@@ -14,8 +16,8 @@ export default function ServicesAddon({ isBg = false }) {
         <Stack spacing="30px">
           <TitleHelper color={isBg && "gray.50"}>Our Services</TitleHelper>
 
-          <SimpleGrid w="100%" spacing="20px" columns={{ base: 2, md: 5 }}>
-            {[1, 2, 3, 4, 5].map((e, i) => (
+          <SimpleGrid w="100%" spacing="20px" columns={{ base: 1, md: 3 }}>
+            {[1, 2, 3].map((e, i) => (
               <Stack
                 pos="relative"
                 _before={{
@@ -46,6 +48,10 @@ export default function ServicesAddon({ isBg = false }) {
               </Stack>
             ))}
           </SimpleGrid>
+
+          <Center>
+            <MainButton title="Show All" />
+          </Center>
         </Stack>
       </BoxContainer>
     </Box>

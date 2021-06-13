@@ -19,6 +19,7 @@ export default function MainButton({
       }}
       _active={{
         bg: "green.500",
+        transform: "scale(0.8)",
       }}
       px="50px"
       rounded="full"

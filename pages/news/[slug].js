@@ -9,7 +9,7 @@ export default function ProjectDesc() {
     <MainLayout title="How is it going">
       <BreadcrumbAddon
         title="How is is going"
-        links={["Home", "Projects", "Discover"]}
+        links={["Home", "News", "Discover"]}
       />
       <SingleAddon
         desc={

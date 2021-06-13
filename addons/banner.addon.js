@@ -4,6 +4,7 @@ import React from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import MainButton from "../components/buttons/main.button";
+import BoxContainer from "../components/layouts/container.layout";
 
 export default function BannerAddon() {
   const settings = {
@@ -24,7 +25,7 @@ export default function BannerAddon() {
     return (
       <Button
         pos="absolute"
-        right="30px"
+        right="0"
         zIndex="50"
         bottom="50%"
         mt="50px"
@@ -46,7 +47,7 @@ export default function BannerAddon() {
     return (
       <Button
         pos="absolute"
-        left="30px"
+        left="0"
         zIndex="50"
         bottom="50%"
         d={{ base: "none", md: "flex" }}
@@ -62,58 +63,80 @@ export default function BannerAddon() {
   }
 
   return (
-    <Slider {...settings}>
-      <Box
-        backgroundImage="url(https://images.unsplash.com/photo-1529045138962-5f59528258fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1131&q=80)"
-        bgSize="cover"
-        bgPos="center"
-        h="500px"
-        bgRepeat="no-repeat"
+    <Box
+      // backgroundImage="url(https://static.wixstatic.com/media/3db22c_11efeb57ed414fa2a8b6e88d5d23daf0~mv2.jpg/v1/fill/w_1583,h_400,al_c,q_85,usm_0.66_1.00_0.01/3db22c_11efeb57ed414fa2a8b6e88d5d23daf0~mv2.webp)"
+      bgSize="cover"
+      bgPos="center"
+      overflow="hidden"
+      position="relative"
+    >
+      <video
+        style={{ position: "absolute", top: 0, left: 0, width: "100%" }}
+        loop
+        autoPlay
+        muted
       >
-        <Center
-          w="100%"
-          h="100%"
-          // bg="green.200"
-          bgGradient={"linear(to-r, blackAlpha.600, rgba(0,0,0,0.8))"}
-          color="white"
-        >
-          <Stack spacing="30px" maxW="3xl" textAlign="center">
-            <Heading fontSize={{ base: "3xl", md: "5xl" }}>
-              Menu Berbuka Puasa Khas Asia Untuk Pelangganmu
-            </Heading>
-
-            <Box as="span">
-              <MainButton title="Get start" />
-            </Box>
-          </Stack>
-        </Center>
-      </Box>
-
+        <source
+          src={"https://www.w3schools.com/tags/movie.mp4"}
+          type="video/mp4"
+        />
+        <source
+          src={"https://www.w3schools.com/tags/movie.mp4"}
+          type="video/ogg"
+        />
+        Your browser does not support the video tag.
+      </video>
       <Box
-        backgroundImage="url(https://images.unsplash.com/photo-1575527820586-5f350ab37c6f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"
-        bgSize="cover"
-        bgPos="center"
-        h="500px"
-        bgRepeat="no-repeat"
+        bgGradient={"linear(to-r, blackAlpha.600, rgba(0,0,0,0.8))"}
+        pos="relative"
       >
-        <Center
-          w="100%"
-          h="100%"
-          // bg="green.200"
-          bgGradient={"linear(to-r, blackAlpha.600, rgba(0,0,0,0.8))"}
-          color="white"
-        >
-          <Stack spacing="30px" maxW="3xl" textAlign="center">
-            <Heading fontSize={{ base: "3xl", md: "5xl" }}>
-              Menu Berbuka Puasa Khas Asia Untuk Pelangganmu
-            </Heading>
+        <BoxContainer>
+          <Slider {...settings}>
+            <Box h="500px" bgRepeat="no-repeat">
+              <Center
+                w="100%"
+                h="100%"
+                // bg="green.200"
+                // bgGradient={"linear(to-r, blackAlpha.600, rgba(0,0,0,0.8))"}
+                color="white"
+              >
+                <Stack spacing="30px" maxW="3xl" textAlign="center">
+                  <Heading fontSize={{ base: "3xl", md: "5xl" }}>
+                    Menu Berbuka Puasa Khas Asia Untuk Pelangganmu
+                  </Heading>
 
-            <Box as="span">
-              <MainButton title="Get start" />
+                  <Box as="span">
+                    <MainButton title="Get start" />
+                  </Box>
+                </Stack>
+              </Center>
             </Box>
-          </Stack>
-        </Center>
+
+            {/* <Box
+              h="500px"
+              bgRepeat="no-repeat"
+            >
+              <Center
+                w="100%"
+                h="100%"
+                // bg="green.200"
+                // bgGradient={"linear(to-r, blackAlpha.600, rgba(0,0,0,0.8))"}
+                color="white"
+              >
+                <Stack spacing="30px" maxW="3xl" textAlign="center">
+                  <Heading fontSize={{ base: "3xl", md: "5xl" }}>
+                    Menu Berbuka Puasa Khas Asia Untuk Pelangganmu
+                  </Heading>
+
+                  <Box as="span">
+                    <MainButton title="Get start" />
+                  </Box>
+                </Stack>
+              </Center>
+            </Box> */}
+          </Slider>
+        </BoxContainer>
       </Box>
-    </Slider>
+    </Box>
   );
 }

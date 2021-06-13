@@ -1,5 +1,6 @@
 import { Image } from "@chakra-ui/image";
 import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/layout";
+import { Flex, Spacer } from "@chakra-ui/react";
 import React from "react";
 import MainButton from "../components/buttons/main.button";
 import OutlineButton from "../components/buttons/outline.button";
@@ -29,10 +30,10 @@ export default function ProjectsAddon({ projects = [1, 2, 3], isHome = true }) {
 
           <SimpleGrid w="100%" spacing="20px" columns={{ base: 1, md: 3 }}>
             {projects.map((e, i) => (
-              <Box rounded="4px" overflow="hidden">
+              <Box key={i} rounded="4px" overflow="hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZhcm1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                  h="230px"
+                  h="160px"
                   w="100%"
                   objectFit="cover"
                   borderTopRightRadius="40px"
@@ -45,13 +46,61 @@ export default function ProjectsAddon({ projects = [1, 2, 3], isHome = true }) {
                   pos="relative"
                 >
                   <BgIllustration />
-                  <Stack spacing="20px">
-                    <Text>
-                      Ceres Imaging works closely with agriculture professionals
-                    </Text>
+                  <Stack textAlign="center" spacing="20px">
+                    <Text fontSize="xl">Ceres Imaging works</Text>
+                    <Stack>
+                      <Flex
+                        py="8px"
+                        borderTop="2px"
+                        borderColor="gray.600"
+                        borderStyle="dotted"
+                        w="100%"
+                      >
+                        <Text>Minimum</Text>
+                        <Spacer />
+                        <Text>N20,000</Text>
+                      </Flex>
+
+                      <Flex
+                        py="8px"
+                        borderTop="2px"
+                        borderColor="gray.600"
+                        borderStyle="dotted"
+                        w="100%"
+                      >
+                        <Text>Maximum</Text>
+                        <Spacer />
+                        <Text>N100,000</Text>
+                      </Flex>
+
+                      <Flex
+                        py="8px"
+                        borderTop="2px"
+                        borderColor="gray.600"
+                        borderStyle="dotted"
+                        w="100%"
+                      >
+                        <Text>Return</Text>
+                        <Spacer />
+                        <Text>10%</Text>
+                      </Flex>
+
+                      <Flex
+                        py="8px"
+                        borderTop="2px"
+                        borderBottom="2px"
+                        borderColor="gray.600"
+                        borderStyle="dotted"
+                        w="100%"
+                      >
+                        <Text>Maturity</Text>
+                        <Spacer />
+                        <Text>10 Months</Text>
+                      </Flex>
+                    </Stack>
                     <Box as="span">
                       <OutlineButton
-                        title="Discover"
+                        title="Invest"
                         link="/projects/how-is-it-going-to-be-0909"
                       />
                     </Box>

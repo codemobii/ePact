@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/layout";
 import Head from "next/head";
 import Router from "next/router";
 import React, { useState } from "react";
+
 import FooterLayout from "./footer.layout";
 import MainHeader from "./header.layout";
 import Loader from "./loader.layout";

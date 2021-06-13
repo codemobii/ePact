@@ -24,9 +24,13 @@ import {
 import ALink from "next/link";
 import BoxContainer from "./container.layout";
 import MainButton from "../buttons/main.button";
+import { useRouter } from "next/router";
 
 export default function MainHeader() {
   const { isOpen, onToggle } = useDisclosure();
+
+  const router = useRouter();
+  const path = router.pathname;
 
   return (
     <Box
@@ -69,13 +73,13 @@ export default function MainHeader() {
             <ALink href="/">
               <Image
                 cursor="pointer"
-                src="https://www.ceresimaging.net/hs-fs/hubfs/Logo.png?width=157&name=Logo.png"
-                w="120px"
+                src="https://www.okulistik.com/anasayfa/images/okulistik-logo.svg"
+                w="130px"
               />
             </ALink>
 
             <Flex display={{ base: "none", md: "flex" }} ml={10}>
-              <DesktopNav />
+              <DesktopNav path={path} />
             </Flex>
           </Flex>
 
@@ -108,7 +112,7 @@ export default function MainHeader() {
   );
 }
 
-const DesktopNav = () => {
+const DesktopNav = ({ path }) => {
   return (
     <Stack direction={"row"} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -119,7 +123,7 @@ const DesktopNav = () => {
                 p={2}
                 fontSize={"sm"}
                 fontWeight={"bold"}
-                color={useColorModeValue("gray.600", "gray.200")}
+                color={navItem.href === path ? "green.400" : "gray.600"}
                 _hover={{
                   textDecoration: "none",
                   color: "green.400",
@@ -271,7 +275,15 @@ const NAV_ITEMS = [
     href: "/projects",
   },
   {
-    label: "Contact",
-    href: "#",
+    label: "News",
+    href: "/news",
+  },
+  {
+    label: "FAQs",
+    href: "/faqs",
+  },
+  {
+    label: "Feedback",
+    href: "/contact",
   },
 ];
