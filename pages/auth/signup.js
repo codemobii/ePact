@@ -1,27 +1,17 @@
-import { Checkbox } from "@chakra-ui/checkbox";
-import { FormControl, FormLabel } from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
 import { Link, Stack, Text } from "@chakra-ui/layout";
 import React from "react";
 import MainButton from "../../components/buttons/main.button";
+import MainInput from "../../components/inputs/main.input";
 import AuthLayout from "../../components/layouts/auth.layout";
 
 export default function SignUp() {
   return (
     <AuthLayout title="Sign Up" heading="Create your ePact account">
       <Stack spacing={4}>
-        <FormControl id="email">
-          <FormLabel>Email address</FormLabel>
-          <Input type="email" />
-        </FormControl>
-        <FormControl id="name">
-          <FormLabel>Fullname</FormLabel>
-          <Input type="text" />
-        </FormControl>
-        <FormControl id="password">
-          <FormLabel>Password</FormLabel>
-          <Input type="password" />
-        </FormControl>
+        <MainInput id="firstname" label="First name" isRequired type="text" />
+        <MainInput id="lastname" label="Last name" isRequired type="text" />
+        <MainInput id="email" label="Email address" isRequired type="email" />
+        <MainInput id="password" label="Password" isRequired type="password" />
         <Stack spacing={10}>
           <Stack textAlign="center">
             <MainButton title="Sign Up" />

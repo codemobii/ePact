@@ -4,12 +4,12 @@ import { Box, Center, Flex, Stack } from "@chakra-ui/layout";
 import Link from "next/link";
 import React from "react";
 import {
-  BsAppIndicator,
   BsArrowClockwise,
   BsBarChart,
   BsGrid,
   BsPeopleCircle,
 } from "react-icons/bs";
+import BgIllustration from "../helpers/bg_illus.helper";
 
 export default function SidebarLayout({ isOpen = false }) {
   return (
@@ -23,6 +23,7 @@ export default function SidebarLayout({ isOpen = false }) {
       zIndex="11"
       d={{ base: isOpen ? "block" : "none", md: "block" }}
     >
+      <BgIllustration isOpac={false} />
       <Flex px="20px" align="center" w="100%" h="70px">
         <Link href="/account">
           <Image
@@ -51,6 +52,8 @@ export default function SidebarLayout({ isOpen = false }) {
             _hover={{
               bgGradient: "linear(to-l, whiteAlpha.400, whiteAlpha.50)",
             }}
+            as="a"
+            href={e.href}
           >
             {e.label}
           </Button>
@@ -68,22 +71,17 @@ const NAV_LINKS = [
   },
   {
     label: "Investments",
-    href: "/account",
+    href: "/account/projects",
     icon: <BsBarChart size="18px" />,
   },
   {
     label: "History",
-    href: "/account",
+    href: "/account/history",
     icon: <BsArrowClockwise size="18px" />,
   },
   {
-    label: "Notifications",
-    href: "/account/notifications",
-    icon: <BsAppIndicator size="18px" />,
-  },
-  {
     label: "Account",
-    href: "/account",
+    href: "/account/settings",
     icon: <BsPeopleCircle size="18px" />,
   },
 ];

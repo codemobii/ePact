@@ -6,7 +6,7 @@ import BoxContainer from "./container.layout";
 import SidebarLayout from "./sidebar.layout";
 import TopbarLayout from "./topbar.layout";
 
-export default function AccountLayout({ children }) {
+export default function AccountLayout({ children, title = "Dashboard" }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const onToggle = () => {
@@ -20,7 +20,7 @@ export default function AccountLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <TopbarLayout onToggle={onToggle} isOpen={isOpen} />
+      <TopbarLayout title={title} onToggle={onToggle} isOpen={isOpen} />
 
       <SidebarLayout isOpen={isOpen} />
 

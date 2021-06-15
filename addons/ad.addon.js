@@ -18,7 +18,10 @@ export default function AdAddon() {
             </Text>
           </Stack>
           <Box as="span">
-            <MainButton title="Earn Crypto" />
+            <MainButton
+              title="Start Investing"
+              link="/account/projects/invest"
+            />
           </Box>
         </Stack>
 

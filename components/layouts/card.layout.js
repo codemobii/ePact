@@ -9,6 +9,7 @@ export default function CardLayout({ children }) {
       borderRadius="4px"
       rounded="md"
       border="1px"
+      overflowX="hidden"
       borderColor="gray.200"
     >
       {children}

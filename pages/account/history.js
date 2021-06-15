@@ -7,6 +7,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/layout";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import React from "react";
 import AccountInvestmentsAddon from "../../addons/acount_investments.addon";
 import AdAddon from "../../addons/ad.addon";
@@ -19,13 +20,10 @@ import ListLayout from "../../components/layouts/list.layout";
 
 export default function Account() {
   return (
-    <AccountLayout>
-      <AdAddon />
-      <BalanceAddon />
-
+    <AccountLayout title="History">
       <Box w="100%">
         <CardLayout>
-          <ListLayout title="Recent Activities">
+          <ListLayout title="Activities">
             <TableAddon />
           </ListLayout>
         </CardLayout>

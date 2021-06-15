@@ -8,11 +8,15 @@ import BgIllustration from "../components/helpers/bg_illus.helper";
 import TitleHelper from "../components/helpers/title.helper";
 import BoxContainer from "../components/layouts/container.layout";
 
-export default function ProjectsAddon({ projects = [1, 2, 3], isHome = true }) {
+export default function ProjectsAddon({
+  projects = [1, 2, 3],
+  isHome = true,
+  isAccount = false,
+}) {
   return (
     <Box
       w="100%"
-      bgColor={isHome ? "gray.50" : "#fff"}
+      bgColor={isHome ? "gray.50" : isAccount ? "transparent" : "#fff"}
       py="80px"
       pos="relative"
     >
@@ -80,9 +84,9 @@ export default function ProjectsAddon({ projects = [1, 2, 3], isHome = true }) {
                         borderStyle="dotted"
                         w="100%"
                       >
-                        <Text>Return</Text>
+                        <Text>Available tokens</Text>
                         <Spacer />
-                        <Text>10%</Text>
+                        <Text>100</Text>
                       </Flex>
 
                       <Flex
@@ -93,15 +97,15 @@ export default function ProjectsAddon({ projects = [1, 2, 3], isHome = true }) {
                         borderStyle="dotted"
                         w="100%"
                       >
-                        <Text>Maturity</Text>
+                        <Text>Token price</Text>
                         <Spacer />
-                        <Text>10 Months</Text>
+                        <Text>N10,000 per token</Text>
                       </Flex>
                     </Stack>
                     <Box as="span">
                       <OutlineButton
                         title="Invest"
-                        link="/projects/how-is-it-going-to-be-0909"
+                        link="/account/projects/invest/1213r3938"
                       />
                     </Box>
                   </Stack>

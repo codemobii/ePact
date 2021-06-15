@@ -1,3 +1,4 @@
+import { IconButton } from "@chakra-ui/button";
 import { Box, SimpleGrid } from "@chakra-ui/layout";
 import { Stack, Text } from "@chakra-ui/react";
 import React from "react";
@@ -6,10 +7,9 @@ import {
   BsArrowClockwise,
   BsBarChart,
   BsGrid,
-  BsPerson,
 } from "react-icons/bs";
 
-export default function BottombarLayout() {
+export default function MainBottombarLayout() {
   return (
     <Box
       bg="white"
@@ -41,23 +41,23 @@ export default function BottombarLayout() {
 
 const NAV_LINKS = [
   {
-    label: "Dashboard",
-    href: "/account",
+    label: "Home",
+    href: "/",
     icon: <BsGrid size="20px" />,
   },
   {
-    label: "Projects",
-    href: "/account/projects",
+    label: "My Farm",
+    href: "/account",
     icon: <BsBarChart size="20px" />,
   },
   {
-    label: "History",
-    href: "/account/history",
+    label: "News",
+    href: "/account",
     icon: <BsArrowClockwise size="20px" />,
   },
   {
-    label: "Account",
-    href: "/account/settings",
-    icon: <BsPerson size="18px" />,
+    label: "Feedback",
+    href: "/account/notifications",
+    icon: <BsAppIndicator size="18px" />,
   },
 ];

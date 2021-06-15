@@ -17,7 +17,7 @@ export default function OutlineButton({
       bg="transparent"
       border="2px"
       borderColor={"green.400"}
-      href={link}
+      href={link ?? ""}
       _hover={{
         bg: "green.300",
         borderColor: "green.300",

@@ -50,6 +50,7 @@ export default function FooterLayout() {
       width="100%"
       bg={useColorModeValue("gray.50", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
+      marginBottom={{ base: "75px", md: 0 }}
     >
       <Container as={Stack} maxW={"container.lg"} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>

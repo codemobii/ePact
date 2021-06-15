@@ -1,11 +1,14 @@
 import { Box } from "@chakra-ui/layout";
+
 import Head from "next/head";
 import Router from "next/router";
+
 import React, { useState } from "react";
 
 import FooterLayout from "./footer.layout";
 import MainHeader from "./header.layout";
 import Loader from "./loader.layout";
+import MainBottombarLayout from "./mainbottom.bar";
 
 export default function MainLayout({
   children,
@@ -35,6 +38,8 @@ export default function MainLayout({
       {children}
 
       <FooterLayout />
+
+      <MainBottombarLayout />
     </Box>
   );
 }

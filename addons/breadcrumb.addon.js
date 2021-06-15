@@ -28,7 +28,7 @@ export default function BreadcrumbAddon({ title = "", links = [] }) {
                 <Text key={i} fontSize="xs">
                   {e}
                 </Text>
-                {links[links.length - 1] !== e && <BsChevronRight />}
+                {links[links.length - 1] !== e && <BsChevronRight key={i} />}
               </>
             ))}
           </HStack>
