@@ -21,16 +21,24 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { signIn, useSession } from "next-auth/client";
 import ALink from "next/link";
 import BoxContainer from "./container.layout";
 import MainButton from "../buttons/main.button";
 import { useRouter } from "next/router";
+import { GlobalContext } from "../../pages/_app";
+import { useContext } from "react";
+import { getStrapiMedia } from "../../utils/media.util";
 
 export default function MainHeader() {
   const { isOpen, onToggle } = useDisclosure();
 
+  const [session, loading] = useSession();
+
   const router = useRouter();
   const path = router.pathname;
+
+  const global = useContext(GlobalContext);
 
   return (
     <Box
@@ -73,7 +81,7 @@ export default function MainHeader() {
             <ALink href="/">
               <Image
                 cursor="pointer"
-                src="https://www.okulistik.com/anasayfa/images/okulistik-logo.svg"
+                src={getStrapiMedia(global.logo)}
                 w="130px"
               />
             </ALink>
@@ -89,7 +97,7 @@ export default function MainHeader() {
             direction={"row"}
             spacing={6}
           >
-            <Button
+            {/* <Button
               as={"a"}
               fontSize={"sm"}
               fontWeight={"bold"}
@@ -97,9 +105,20 @@ export default function MainHeader() {
               href={"/auth/signin"}
             >
               Sign In
-            </Button>
+            </Button> */}
             <Box d={{ base: "none", md: "flex" }}>
-              <MainButton link="/auth/signup" title="Sign Up" />
+              {!loading && session ? (
+                <MainButton link="/account" title="Account" />
+              ) : (
+                <MainButton
+                  link="/api/auth/signin"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signIn();
+                  }}
+                  title="Sign In"
+                />
+              )}
             </Box>
           </Stack>
         </Flex>
@@ -119,7 +138,7 @@ const DesktopNav = ({ path }) => {
         <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Link
+              <Box
                 p={2}
                 fontSize={"sm"}
                 fontWeight={"bold"}
@@ -130,7 +149,7 @@ const DesktopNav = ({ path }) => {
                 }}
               >
                 <ALink href={navItem.href ?? "#"}>{navItem.label}</ALink>
-              </Link>
+              </Box>
             </PopoverTrigger>
 
             {navItem.children && (

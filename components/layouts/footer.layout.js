@@ -10,7 +10,18 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react";
-import { FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useContext } from "react";
+import {
+  FaTwitter,
+  FaYoutube,
+  FaInstagramSquare,
+  FaFacebookSquare,
+} from "react-icons/fa";
+import { GlobalContext } from "../../pages/_app";
+import { fetchAPI } from "../../utils/api.util";
+import { getStrapiMedia } from "../../utils/media.util";
 
 const ListHeader = ({ children }) => {
   return (
@@ -37,6 +48,7 @@ const SocialButton = ({ children, label, href }) => {
       _hover={{
         bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
       }}
+      target="_blank"
     >
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
@@ -45,6 +57,20 @@ const SocialButton = ({ children, label, href }) => {
 };
 
 export default function FooterLayout() {
+  const global = useContext(GlobalContext);
+
+  const [pages, setPages] = useState([]);
+  const [about, setAbout] = useState("");
+
+  useEffect(async () => {
+    fetchAPI("/about-us-card-one").then((res) => {
+      setAbout(res.description);
+    });
+    fetchAPI("/pages").then((res) => {
+      setPages(res);
+    });
+  }, []);
+
   return (
     <Box
       width="100%"
@@ -55,26 +81,32 @@ export default function FooterLayout() {
       <Container as={Stack} maxW={"container.lg"} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={"flex-start"}>
+            <ListHeader>
+              <Image
+                cursor="pointer"
+                src={getStrapiMedia(global.logo)}
+                w="100px"
+              />
+            </ListHeader>
+            <Text fontSize="sm">{about}</Text>
+          </Stack>
+
+          <Stack align={"flex-start"}>
             <ListHeader>Company</ListHeader>
-            <Link href={"#"}>About Us</Link>
-            <Link href={"#"}>Services</Link>
-            <Link href={"#"}>Projects</Link>
-            <Link href={"#"}>Contact Us</Link>
+            {NAV_ITEMS.map((e, i) => (
+              <Link key={i} href={e.href}>
+                {e.label}
+              </Link>
+            ))}
           </Stack>
 
           <Stack align={"flex-start"}>
-            <ListHeader>Pages</ListHeader>
-            <Link href={"#"}>Help Center</Link>
-            <Link href={"#"}>Safety Center</Link>
-            <Link href={"#"}>Community Guidelines</Link>
-          </Stack>
-
-          <Stack align={"flex-start"}>
-            <ListHeader>Legal</ListHeader>
-            <Link href={"#"}>Cookies Policy</Link>
-            <Link href={"#"}>Privacy Policy</Link>
-            <Link href={"#"}>Terms of Service</Link>
-            <Link href={"#"}>Law Enforcement</Link>
+            <ListHeader>Page</ListHeader>
+            {pages.map((e, i) => (
+              <Link href={`/pages/${e.slug}`} key={i}>
+                {e.title}
+              </Link>
+            ))}
           </Stack>
 
           <Stack align={"flex-start"}>
@@ -106,16 +138,16 @@ export default function FooterLayout() {
           justify={{ md: "space-between" }}
           align={{ md: "center" }}
         >
-          <Text>© {new Date().getFullYear()} ePact. All rights reserved</Text>
+          <Text>{global.footer_text}</Text>
           <Stack direction={"row"} spacing={6}>
-            <SocialButton label={"Twitter"} href={"#"}>
+            <SocialButton label={"Twitter"} href={global.twitter}>
               <FaTwitter />
             </SocialButton>
-            <SocialButton label={"YouTube"} href={"#"}>
-              <FaYoutube />
+            <SocialButton label={"YouTube"} href={global.facebook}>
+              <FaFacebookSquare />
             </SocialButton>
-            <SocialButton label={"Instagram"} href={"#"}>
-              <FaInstagram />
+            <SocialButton label={"Instagram"} href={global.instagram}>
+              <FaInstagramSquare />
             </SocialButton>
           </Stack>
         </Container>
@@ -123,3 +155,30 @@ export default function FooterLayout() {
     </Box>
   );
 }
+
+const NAV_ITEMS = [
+  {
+    label: "About",
+    href: "/about",
+  },
+  {
+    label: "Services",
+    href: "/services",
+  },
+  {
+    label: "Projects",
+    href: "/projects",
+  },
+  {
+    label: "News",
+    href: "/news",
+  },
+  {
+    label: "FAQs",
+    href: "/faqs",
+  },
+  {
+    label: "Feedback",
+    href: "/contact",
+  },
+];

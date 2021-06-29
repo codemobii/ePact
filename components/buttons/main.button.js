@@ -13,7 +13,7 @@ export default function MainButton({
       fontWeight={"bold"}
       color={"white"}
       bg={"green.400"}
-      href={link ?? ""}
+      href={link ?? "/"}
       _hover={{
         bg: "green.300",
       }}

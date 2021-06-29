@@ -17,14 +17,21 @@ import {
   useBreakpointValue,
   Image,
 } from "@chakra-ui/react";
-import React from "react";
+import { signOut } from "next-auth/client";
+import React, { useContext } from "react";
+import { GlobalContext } from "../../pages/_app";
+import { getStrapiMedia } from "../../utils/media.util";
 import BoxContainer from "./container.layout";
 
 export default function TopbarLayout({
   title = "Dashboard",
   // isOpen = false,
   // onToggle = null,
+  loading = true,
+  session = {},
 }) {
+  const global = useContext(GlobalContext);
+
   return (
     <Box
       w="100%"
@@ -43,7 +50,7 @@ export default function TopbarLayout({
             base: (
               <Image
                 cursor="pointer"
-                src="https://www.okulistik.com/anasayfa/images/okulistik-logo.svg"
+                src={getStrapiMedia(global.logo)}
                 w="130px"
               />
             ),
@@ -54,9 +61,13 @@ export default function TopbarLayout({
           <Popover trigger="hover">
             <PopoverTrigger>
               <HStack cursor="pointer">
-                <Avatar size="sm" src="https://bit.ly/dan-abamov" />
+                <Avatar
+                  size="sm"
+                  src={!loading && session && session.user.image}
+                  name={!loading && session && session.user.name}
+                />
                 <Text fontWeight="bold" d={{ base: "none", md: "block" }}>
-                  John
+                  {!loading && session && session.user.name}
                 </Text>
               </HStack>
             </PopoverTrigger>
@@ -65,15 +76,27 @@ export default function TopbarLayout({
                 <Stack spacing="20px" align="center" pos="relative" p="20px">
                   <Avatar size="lg" src="https://bit.ly/dan-abamov" />
                   <Stack spacing="0.5" textAlign="center" align="center">
-                    <Text fontWeight="bold">John Chimaobi</Text>
+                    <Text fontWeight="bold">
+                      {!loading && session && session.user.name}
+                    </Text>
                     <Text color="gray.400" fontWeight="light">
-                      colourjim@gmail.com
+                      {!loading && session && session.user.email}
                     </Text>
                   </Stack>
 
                   <HStack>
                     <Button fontSize="sm">Account</Button>
-                    <Button fontSize="sm" variant="ghost" colorScheme="red">
+                    <Button
+                      as="a"
+                      href="/api/auth/signout"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        signOut();
+                      }}
+                      fontSize="sm"
+                      variant="ghost"
+                      colorScheme="red"
+                    >
                       Sign out
                     </Button>
                   </HStack>

@@ -2,16 +2,20 @@ import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Box, Center, Flex, Stack } from "@chakra-ui/layout";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import {
   BsArrowClockwise,
   BsBarChart,
   BsGrid,
   BsPeopleCircle,
 } from "react-icons/bs";
+import { GlobalContext } from "../../pages/_app";
+import { getStrapiMedia } from "../../utils/media.util";
 import BgIllustration from "../helpers/bg_illus.helper";
 
 export default function SidebarLayout({ isOpen = false }) {
+  const global = useContext(GlobalContext);
+
   return (
     <Box
       w="260px"
@@ -26,11 +30,7 @@ export default function SidebarLayout({ isOpen = false }) {
       <BgIllustration isOpac={false} />
       <Flex px="20px" align="center" w="100%" h="70px">
         <Link href="/account">
-          <Image
-            cursor="pointer"
-            src="https://www.okulistik.com/anasayfa/images/okulistik-logo.svg"
-            w="130px"
-          />
+          <Image cursor="pointer" src={getStrapiMedia(global.logo)} w="130px" />
         </Link>
       </Flex>
 

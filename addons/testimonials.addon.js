@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import BgIllustration from "../components/helpers/bg_illus.helper";
 import BoxContainer from "../components/layouts/container.layout";
 
-export default function TestimonialsAddon({ isWhiteBg = false }) {
+export default function TestimonialsAddon({ isWhiteBg = false, data = [] }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -87,57 +87,29 @@ export default function TestimonialsAddon({ isWhiteBg = false }) {
           </Center>
 
           <Slider {...settings}>
-            <div>
-              <Center w="100%">
-                <Stack
-                  color={!isWhiteBg && "gray.100"}
-                  spacing="20px"
-                  maxW="600px"
-                  textAlign="center"
-                >
-                  <Text fontWeight="medium">
-                    We’re a team of diverse subject-matter experts, from
-                    agronomists and PCAs to engineers and astrophysicists. We’re
-                    passionate about agriculture because we farm, too.
-                  </Text>
+            {data.map((e, i) => (
+              <div>
+                <Center w="100%">
+                  <Stack
+                    color={!isWhiteBg && "gray.100"}
+                    spacing="20px"
+                    maxW="600px"
+                    textAlign="center"
+                  >
+                    <Text fontWeight="medium">{e.description}</Text>
 
-                  <Stack textTransform="uppercase">
-                    <Text fontSize="sm" fontWeight="medium">
-                      John Chimaobi, Manager
-                    </Text>
-                    <Text fontSize="sm" fontWeight="light">
-                      DAIMOND Globals
-                    </Text>
+                    <Stack textTransform="uppercase">
+                      <Text fontSize="sm" fontWeight="medium">
+                        {e.fullname}
+                      </Text>
+                      <Text fontSize="sm" fontWeight="light">
+                        {e.company}
+                      </Text>
+                    </Stack>
                   </Stack>
-                </Stack>
-              </Center>
-            </div>
-
-            <div>
-              <Center w="100%">
-                <Stack
-                  color={!isWhiteBg && "gray.100"}
-                  spacing="20px"
-                  maxW="600px"
-                  textAlign="center"
-                >
-                  <Text fontWeight="medium">
-                    We’re a team of diverse subject-matter experts, from
-                    agronomists and PCAs to engineers and astrophysicists. We’re
-                    passionate about agriculture because we farm, too.
-                  </Text>
-
-                  <Stack textTransform="uppercase">
-                    <Text fontSize="sm" fontWeight="medium">
-                      John Chimaobi, Manager
-                    </Text>
-                    <Text fontSize="sm" fontWeight="light">
-                      DAIMOND Globals
-                    </Text>
-                  </Stack>
-                </Stack>
-              </Center>
-            </div>
+                </Center>
+              </div>
+            ))}
           </Slider>
         </Stack>
       </BoxContainer>

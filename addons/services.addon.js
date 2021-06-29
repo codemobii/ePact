@@ -7,8 +7,9 @@ import MainButton from "../components/buttons/main.button";
 import BgIllustration from "../components/helpers/bg_illus.helper";
 import TitleHelper from "../components/helpers/title.helper";
 import BoxContainer from "../components/layouts/container.layout";
+import { getStrapiMedia } from "../utils/media.util";
 
-export default function ServicesAddon({ isBg = false }) {
+export default function ServicesAddon({ isBg = false, data = [] }) {
   return (
     <Box py="80px" pos="relative" bgColor={isBg && "gray.50"}>
       {isBg && <BgIllustration />}
@@ -17,7 +18,7 @@ export default function ServicesAddon({ isBg = false }) {
           <TitleHelper color={isBg && "gray.50"}>Our Services</TitleHelper>
 
           <SimpleGrid w="100%" spacing="20px" columns={{ base: 1, md: 3 }}>
-            {[1, 2, 3].map((e, i) => (
+            {data.map((e, i) => (
               <Stack
                 pos="relative"
                 _before={{
@@ -40,17 +41,17 @@ export default function ServicesAddon({ isBg = false }) {
                 <Image
                   w="120px"
                   objectFit="contain"
-                  src="https://static.wixstatic.com/media/3db22c_e9aa05ae68154a7e8e4ad8053ea0cadb~mv2.png/v1/fill/w_108,h_93,al_c,q_85,usm_0.66_1.00_0.01/asset%20our%20best%20service-02.webp"
+                  src={getStrapiMedia(e.icon)}
                 />
-                <Text fontWeight="bold" w="100px">
-                  Everything is Here
+                <Text fontWeight="bold" w="200px">
+                  {e.title}
                 </Text>
               </Stack>
             ))}
           </SimpleGrid>
 
           <Center>
-            <MainButton title="Show All" />
+            <MainButton title="Show All" link="/services" />
           </Center>
         </Stack>
       </BoxContainer>

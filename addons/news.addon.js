@@ -6,8 +6,9 @@ import OutlineButton from "../components/buttons/outline.button";
 import BgIllustration from "../components/helpers/bg_illus.helper";
 import TitleHelper from "../components/helpers/title.helper";
 import BoxContainer from "../components/layouts/container.layout";
+import { getStrapiMedia } from "../utils/media.util";
 
-export default function NewsAddon({ projects = [1, 2, 3], isHome = true }) {
+export default function NewsAddon({ data = [1, 2, 3], isHome = true }) {
   return (
     <Box
       w="100%"
@@ -19,10 +20,10 @@ export default function NewsAddon({ projects = [1, 2, 3], isHome = true }) {
       <BoxContainer>
         <Stack align="center" spacing="30px">
           <SimpleGrid w="100%" spacing="20px" columns={{ base: 1, md: 3 }}>
-            {projects.map((e, i) => (
+            {data.map((e, i) => (
               <Box key={i} rounded="4px" overflow="hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZhcm1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                  src={getStrapiMedia(e.image)}
                   h="160px"
                   w="100%"
                   objectFit="cover"
@@ -37,13 +38,11 @@ export default function NewsAddon({ projects = [1, 2, 3], isHome = true }) {
                 >
                   <BgIllustration />
                   <Stack spacing="20px">
-                    <Text>
-                      Ceres Imaging works closely with agriculture professionals
-                    </Text>
+                    <Text>{e.title}</Text>
                     <Box as="span">
                       <OutlineButton
                         title="Discover"
-                        link="/news/how-is-it-going-to-be-0909"
+                        link={`/news/${e.slug}`}
                       />
                     </Box>
                   </Stack>
@@ -52,7 +51,7 @@ export default function NewsAddon({ projects = [1, 2, 3], isHome = true }) {
             ))}
           </SimpleGrid>
 
-          {isHome && <MainButton title="Show All" />}
+          {isHome && <MainButton title="Show All" link="/news" />}
         </Stack>
       </BoxContainer>
     </Box>

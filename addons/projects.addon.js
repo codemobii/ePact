@@ -2,11 +2,14 @@ import { Image } from "@chakra-ui/image";
 import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/layout";
 import { Flex, Spacer } from "@chakra-ui/react";
 import React from "react";
+import NumberFormat from "react-number-format";
+
 import MainButton from "../components/buttons/main.button";
 import OutlineButton from "../components/buttons/outline.button";
 import BgIllustration from "../components/helpers/bg_illus.helper";
 import TitleHelper from "../components/helpers/title.helper";
 import BoxContainer from "../components/layouts/container.layout";
+import { getStrapiMedia } from "../utils/media.util";
 
 export default function ProjectsAddon({
   projects = [1, 2, 3],
@@ -36,7 +39,7 @@ export default function ProjectsAddon({
             {projects.map((e, i) => (
               <Box key={i} rounded="4px" overflow="hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZhcm1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                  src={e.image && getStrapiMedia(e.image)}
                   h="160px"
                   w="100%"
                   objectFit="cover"
@@ -51,7 +54,7 @@ export default function ProjectsAddon({
                 >
                   <BgIllustration />
                   <Stack textAlign="center" spacing="20px">
-                    <Text fontSize="xl">Ceres Imaging works</Text>
+                    <Text fontSize="xl">{e.title}</Text>
                     <Stack>
                       <Flex
                         py="8px"
@@ -62,7 +65,14 @@ export default function ProjectsAddon({
                       >
                         <Text>Minimum</Text>
                         <Spacer />
-                        <Text>N20,000</Text>
+                        <Text>
+                          <NumberFormat
+                            value={e.minimum}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"₦"}
+                          />
+                        </Text>
                       </Flex>
 
                       <Flex
@@ -74,7 +84,14 @@ export default function ProjectsAddon({
                       >
                         <Text>Maximum</Text>
                         <Spacer />
-                        <Text>N100,000</Text>
+                        <Text>
+                          <NumberFormat
+                            value={e.maximum}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"₦"}
+                          />
+                        </Text>
                       </Flex>
 
                       <Flex
@@ -84,9 +101,9 @@ export default function ProjectsAddon({
                         borderStyle="dotted"
                         w="100%"
                       >
-                        <Text>Available tokens</Text>
+                        <Text>Return</Text>
                         <Spacer />
-                        <Text>100</Text>
+                        <Text>{e.interest}%</Text>
                       </Flex>
 
                       <Flex
@@ -97,15 +114,15 @@ export default function ProjectsAddon({
                         borderStyle="dotted"
                         w="100%"
                       >
-                        <Text>Token price</Text>
+                        <Text>Maturity date</Text>
                         <Spacer />
-                        <Text>N10,000 per token</Text>
+                        <Text>{e.maturity}</Text>
                       </Flex>
                     </Stack>
                     <Box as="span">
                       <OutlineButton
                         title="Invest"
-                        link="/account/projects/invest/1213r3938"
+                        link={`/account/projects/invest/${e.id}`}
                       />
                     </Box>
                   </Stack>

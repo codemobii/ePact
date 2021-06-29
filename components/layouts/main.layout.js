@@ -10,11 +10,7 @@ import MainHeader from "./header.layout";
 import Loader from "./loader.layout";
 import MainBottombarLayout from "./mainbottom.bar";
 
-export default function MainLayout({
-  children,
-  title = "Home",
-  description = "",
-}) {
+export default function MainLayout({ children, title = "Home", fullSeo = {} }) {
   const [loading, setLoading] = useState(false);
 
   Router.events.on("routeChangeStart", (url) => {
@@ -28,8 +24,32 @@ export default function MainLayout({
     <Box w="100%" minH="100vh" pos="relative" bg="white">
       <Head>
         <title>ePact :: {title}</title>
-        <meta name="description" content={description} />
-        <link rel="icon" href="/favicon.ico" />
+
+        {fullSeo.metaTitle && (
+          <>
+            <meta property="og:title" content={fullSeo.metaTitle} />
+            <meta name="twitter:title" content={fullSeo.metaTitle} />
+          </>
+        )}
+        {fullSeo.metaDescription && (
+          <>
+            <meta name="description" content={fullSeo.metaDescription} />
+            <meta property="og:description" content={fullSeo.metaDescription} />
+            <meta
+              name="twitter:description"
+              content={fullSeo.metaDescription}
+            />
+          </>
+        )}
+        {fullSeo.shareImage && (
+          <>
+            <meta property="og:image" content={fullSeo.shareImage} />
+            <meta name="twitter:image" content={fullSeo.shareImage} />
+            <meta name="image" content={fullSeo.shareImage} />
+          </>
+        )}
+        {fullSeo.article && <meta property="og:type" content="article" />}
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <Loader loading={loading} />

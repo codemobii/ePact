@@ -5,8 +5,9 @@ import Slider from "react-slick";
 import BgIllustration from "../components/helpers/bg_illus.helper";
 import TitleHelper from "../components/helpers/title.helper";
 import BoxContainer from "../components/layouts/container.layout";
+import { getStrapiMedia } from "../utils/media.util";
 
-export default function TeamAddon() {
+export default function TeamAddon({ data = [] }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -50,15 +51,15 @@ export default function TeamAddon() {
           <TitleHelper color="gray.50">We Are Family</TitleHelper>
 
           <Slider {...settings}>
-            {[1, 2, 3, 4, 5].map((e, i) => (
+            {data.map((e, i) => (
               <div>
                 <Center>
                   <Stack spacing="20px" key={i} textAlign="center">
                     <Avatar
                       boxShadow="base"
                       size="2xl"
-                      name="Dan Abrahmov"
-                      src="https://bit.ly/dan-abramov"
+                      name={e.fullname}
+                      src={getStrapiMedia(e.image)}
                     />
                     <Stack spacing="1">
                       <Text
@@ -66,14 +67,14 @@ export default function TeamAddon() {
                         fontSize="lg"
                         fontWeight="bold"
                       >
-                        SAMSUDIN
+                        {e.fullname}
                       </Text>
                       <Text
                         textTransform="uppercase"
                         fontSize="sm"
                         fontWeight="medium"
                       >
-                        Director
+                        {e.role}
                       </Text>
                     </Stack>
                   </Stack>

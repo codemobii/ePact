@@ -5,8 +5,9 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import Slider from "react-slick";
 import MainButton from "../components/buttons/main.button";
 import BoxContainer from "../components/layouts/container.layout";
+import { getStrapiMedia } from "../utils/media.util";
 
-export default function BannerAddon() {
+export default function BannerAddon({ title, video, link }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -76,14 +77,8 @@ export default function BannerAddon() {
         autoPlay
         muted
       >
-        <source
-          src={"https://www.w3schools.com/tags/movie.mp4"}
-          type="video/mp4"
-        />
-        <source
-          src={"https://www.w3schools.com/tags/movie.mp4"}
-          type="video/ogg"
-        />
+        <source src={getStrapiMedia(video)} type="video/mp4" />
+        <source src={getStrapiMedia(video)} type="video/ogg" />
         Your browser does not support the video tag.
       </video>
       <Box
@@ -92,7 +87,7 @@ export default function BannerAddon() {
       >
         <BoxContainer>
           <Slider {...settings}>
-            <Box h="500px" bgRepeat="no-repeat">
+            <Box h={{ base: "260px", md: "500px" }} bgRepeat="no-repeat">
               <Center
                 w="100%"
                 h="100%"
@@ -102,11 +97,11 @@ export default function BannerAddon() {
               >
                 <Stack spacing="30px" maxW="3xl" textAlign="center">
                   <Heading fontSize={{ base: "3xl", md: "5xl" }}>
-                    Menu Berbuka Puasa Khas Asia Untuk Pelangganmu
+                    {title}
                   </Heading>
 
                   <Box as="span">
-                    <MainButton title="Get start" />
+                    <MainButton title="Get start" link={link} />
                   </Box>
                 </Stack>
               </Center>

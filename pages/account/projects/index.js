@@ -17,11 +17,13 @@ import OutlineButton from "../../../components/buttons/outline.button";
 import AccountLayout from "../../../components/layouts/account.layout";
 import CardLayout from "../../../components/layouts/card.layout";
 import ListLayout from "../../../components/layouts/list.layout";
+import { fetchAPI } from "../../../utils/api.util";
 
-export default function Account() {
+export default function Account(props) {
+  const { ad } = props;
   return (
     <AccountLayout title="My Projects">
-      <AdAddon />
+      <AdAddon data={ad} />
 
       <Box w="100%">
         <CardLayout>
@@ -47,4 +49,14 @@ export default function Account() {
       </Box>
     </AccountLayout>
   );
+}
+
+export async function getStaticProps() {
+  // Run API calls in parallel
+  const [ad] = await Promise.all([fetchAPI("/account-ad")]);
+
+  return {
+    props: { ad },
+    revalidate: 1,
+  };
 }

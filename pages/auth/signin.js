@@ -1,5 +1,6 @@
 import { Checkbox } from "@chakra-ui/checkbox";
 import { Link, Stack, Text } from "@chakra-ui/layout";
+import { getSession, signIn, signOut } from "next-auth/client";
 import React from "react";
 import MainButton from "../../components/buttons/main.button";
 import MainInput from "../../components/inputs/main.input";
@@ -29,6 +30,16 @@ export default function Signin() {
               Don't have account?{" "}
               <Link color={"green.400"} href="/auth/signup">
                 Sign Up
+              </Link>
+              <Link href="/api/auth/signin">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signIn();
+                  }}
+                >
+                  Sign In
+                </button>
               </Link>
             </Text>
           </Stack>

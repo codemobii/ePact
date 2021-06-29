@@ -10,12 +10,8 @@ export default function ProjectDesc(props) {
   const { article } = props;
   console.log(props);
   return (
-    <MainLayout title={`News - ${article.title}`}>
-      <BreadcrumbAddon
-        title={article.title}
-        links={["Home", "News", "Discover"]}
-        image={article.image}
-      />
+    <MainLayout title={article.title}>
+      <BreadcrumbAddon title={article.title} links={["Home", article.title]} />
       <SingleAddon
         desc={
           <>
@@ -28,7 +24,7 @@ export default function ProjectDesc(props) {
 }
 
 export async function getStaticPaths() {
-  const news = await fetchAPI("/epact-news");
+  const news = await fetchAPI("/pages");
 
   return {
     paths: news.map((news) => ({
@@ -41,7 +37,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const news = await fetchAPI(`/epact-news?slug=${params.slug}`);
+  const news = await fetchAPI(`/pages?slug=${params.slug}`);
 
   return {
     props: { article: news[0] },
