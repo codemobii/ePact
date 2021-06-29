@@ -25,7 +25,7 @@ const options = {
         try {
           axios
             .post(
-              "http://localhost:1337/wallets",
+              `${process.env.NEXT_PUBLIC_DATABASE_URL}wallets`,
               {
                 users_permissions_user: user.id,
               },
