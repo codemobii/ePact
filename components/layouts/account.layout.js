@@ -1,5 +1,5 @@
 import { Box, Stack } from "@chakra-ui/layout";
-import { useSession } from "next-auth/client";
+import { useSession, signIn } from "next-auth/client";
 import Head from "next/head";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -8,7 +8,9 @@ import BoxContainer from "./container.layout";
 import SidebarLayout from "./sidebar.layout";
 import TopbarLayout from "./topbar.layout";
 
-export default function AccountLayout({ children, title = "Dashboard" }) {
+export default function AccountLayout(props) {
+  const { children, title = "Dashboard" } = props;
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [session, loading] = useSession();
@@ -17,11 +19,12 @@ export default function AccountLayout({ children, title = "Dashboard" }) {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    if (!loading && !session) {
-      window.location.href = "/";
-    }
-  }, [session]);
+  if (typeof window !== "undefined" && loading) return null;
+
+  if (typeof window !== "undefined" && !session) {
+    window.location.href = "/";
+    signIn();
+  }
 
   return (
     <Box w="100%" pos="relative" minH="100vh" bg="gray.50">

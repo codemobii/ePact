@@ -30,6 +30,13 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          <script
+            type="text/javascript"
+            src="https://ravesandbox.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+          ></script>
+          <script src="https://checkout.flutterwave.com/v3.js"></script>
         </body>
       </Html>
     );

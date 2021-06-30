@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import App from "next/app";
 import Head from "next/head";
+import { getSession } from "next-auth/client";
 import { createContext } from "react";
 import { getStrapiMedia } from "../utils/media.util";
 import { fetchAPI } from "../utils/api.util";
@@ -37,13 +38,14 @@ const MyApp = ({ Component, pageProps }) => {
 // have getStaticProps. So article, category and home pages still get SSG.
 // Hopefully we can replace this with getStaticProps once this issue is fixed:
 // https://github.com/vercel/next.js/discussions/10949
-MyApp.getInitialProps = async (ctx) => {
+MyApp.getInitialProps = async (ctx, req) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
   const global = await fetchAPI("/website-settings");
+  const ses = await getSession({ req });
   // Pass the data to our page via props
-  return { ...appProps, pageProps: { global } };
+  return { ...appProps, pageProps: { global, ses } };
 };
 
 export default MyApp;

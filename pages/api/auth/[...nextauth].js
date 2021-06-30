@@ -21,28 +21,30 @@ const options = {
   },
   callbacks: {
     session: async (session, user) => {
-      if (!isNaN(user.wallet)) {
+      if (!user.wallet) {
         try {
           axios
             .post(
-              `${process.env.NEXT_PUBLIC_DATABASE_URL}wallets`,
+              `${process.env.NEXT_PUBLIC_API_URL}/wallets`,
               {
                 users_permissions_user: user.id,
               },
               {
                 headers: {
-                  Authorization: `Bearer ${data.jwt}`,
+                  Authorization: `Bearer ${user.jwt}`,
                 },
               }
             )
-            .then((res) => (session.wallet = res.data.id))
+            .then((res) => {
+              console.log(res);
+              session.wallet = user.wallet;
+            })
             .catch((er) => console.log(er));
         } catch (error) {
           console.log(error);
         }
       } else {
         session.wallet = user.wallet;
-        console.log("this one");
       }
 
       session.jwt = user.jwt;

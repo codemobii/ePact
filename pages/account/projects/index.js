@@ -1,62 +1,83 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  SimpleGrid,
-  Spacer,
-  Stack,
-  Text,
-} from "@chakra-ui/layout";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import React from "react";
-import AccountInvestmentsAddon from "../../../addons/acount_investments.addon";
+import { Box } from "@chakra-ui/layout";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { getSession } from "next-auth/client";
 import AdAddon from "../../../addons/ad.addon";
 import BalanceAddon from "../../../addons/balance.addon";
 import TableAddon from "../../../addons/table.addon";
 import OutlineButton from "../../../components/buttons/outline.button";
 import AccountLayout from "../../../components/layouts/account.layout";
 import CardLayout from "../../../components/layouts/card.layout";
+import ContentLoaderLayout from "../../../components/layouts/contentloader.layout";
 import ListLayout from "../../../components/layouts/list.layout";
 import { fetchAPI } from "../../../utils/api.util";
 
 export default function Account(props) {
-  const { ad } = props;
+  const { ad, ses } = props;
+
+  const [wallet, setWallet] = useState({});
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const transactionReq = axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/transactions?users_permissions_user=${
+      ses && ses._id
+    }`,
+    {
+      headers: {
+        Authorization: `Bearer ${ses && ses.jwt}`,
+      },
+    }
+  );
+
+  const getItems = async () => {
+    axios
+      .all([transactionReq])
+      .then(
+        axios.spread((...responses) => {
+          const resOne = responses[0];
+
+          setTransactions(resOne.data);
+        })
+      )
+      .catch((errors) => {
+        console.log(errors);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    console.log(ses);
+    getItems();
+  }, []);
+
   return (
     <AccountLayout title="My Projects">
       <AdAddon data={ad} />
 
-      <Box w="100%">
-        <CardLayout>
-          <Tabs variant="enclosed">
-            <TabList>
-              <Tab>Farm investments</Tab>
-              <Tab>My Tokens</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <ListLayout>
-                  <TableAddon />
-                </ListLayout>
-              </TabPanel>
-              <TabPanel>
-                <ListLayout>
-                  <TableAddon />
-                </ListLayout>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </CardLayout>
-      </Box>
+      {loading ? (
+        <ContentLoaderLayout loading={loading} />
+      ) : (
+        <>
+          <Box w="100%">
+            <CardLayout>
+              <ListLayout title="My transactions">
+                <TableAddon data={transactions} />
+              </ListLayout>
+            </CardLayout>
+          </Box>
+        </>
+      )}
     </AccountLayout>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps({ req }) {
   // Run API calls in parallel
   const [ad] = await Promise.all([fetchAPI("/account-ad")]);
+  const ses = await getSession({ req });
 
   return {
-    props: { ad },
-    revalidate: 1,
+    props: { ad, ses },
   };
 }

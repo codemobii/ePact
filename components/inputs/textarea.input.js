@@ -5,11 +5,13 @@ export default function TextareaInput({
   id = "message",
   label = "Message",
   isRequired = false,
+  read = false,
+  value = "",
 }) {
   return (
-    <FormControl id={id} isRequired={isRequired}>
+    <FormControl id={id} isReadOnly={read} isRequired={isRequired}>
       <FormLabel>{label}</FormLabel>
-      <Textarea borderColor="green.400" border="2px" />
+      <Textarea borderColor="green.400" value={value} border="2px" />
       {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
     </FormControl>
   );

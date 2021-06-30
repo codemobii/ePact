@@ -1,41 +1,56 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  SimpleGrid,
-  Spacer,
-  Stack,
-  Text,
-} from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/layout";
 import axios from "axios";
 import React, { useState } from "react";
-import { useSession, getSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import AdAddon from "../../addons/ad.addon";
 import BalanceAddon from "../../addons/balance.addon";
 import TableAddon from "../../addons/table.addon";
-import OutlineButton from "../../components/buttons/outline.button";
 import AccountLayout from "../../components/layouts/account.layout";
 import CardLayout from "../../components/layouts/card.layout";
 import ListLayout from "../../components/layouts/list.layout";
+import ContentLoaderLayout from "../../components/layouts/contentloader.layout";
 import { fetchAPI } from "../../utils/api.util";
 import { useEffect } from "react";
 
 export default function Account(props) {
   const { ad, ses } = props;
 
-  const [session] = useSession();
-
   const [wallet, setWallet] = useState({});
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const walletReq = axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/wallets/${ses && ses.wallet.id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${ses && ses.jwt}`,
+      },
+    }
+  );
+
+  const transactionReq = axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/transactions?users_permissions_user=${
+      ses && ses.id
+    }`,
+    {
+      headers: {
+        Authorization: `Bearer ${ses && ses.jwt}`,
+      },
+    }
+  );
+
   const getItems = async () => {
-    await axios
-      .get("http://localhost:1337/wallet", {
-        headers: {
-          Authorization: `Bearer ${ses.jwt}`,
-        },
-      })
-      .then((res) => console.log(res))
+    axios
+      .all([walletReq, transactionReq])
+      .then(
+        axios.spread((...responses) => {
+          const resOne = responses[0];
+          const resTwo = responses[1];
+
+          setWallet(resOne.data);
+          setTransactions(resTwo.data);
+        })
+      )
       .catch((errors) => {
         console.log(errors);
       })
@@ -50,15 +65,21 @@ export default function Account(props) {
   return (
     <AccountLayout>
       <AdAddon data={ad} />
-      <BalanceAddon />
+      {loading ? (
+        <ContentLoaderLayout loading={loading} />
+      ) : (
+        <>
+          <BalanceAddon data={wallet} />
 
-      <Box w="100%">
-        <CardLayout>
-          <ListLayout title="Recent Activities">
-            <TableAddon />
-          </ListLayout>
-        </CardLayout>
-      </Box>
+          <Box w="100%">
+            <CardLayout>
+              <ListLayout title="Recent Activities">
+                <TableAddon data={transactions} />
+              </ListLayout>
+            </CardLayout>
+          </Box>
+        </>
+      )}
     </AccountLayout>
   );
 }

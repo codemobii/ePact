@@ -27,7 +27,7 @@ export default function TopbarLayout({
   title = "Dashboard",
   // isOpen = false,
   // onToggle = null,
-  loading = true,
+  loading = false,
   session = {},
 }) {
   const global = useContext(GlobalContext);
@@ -63,24 +63,28 @@ export default function TopbarLayout({
               <HStack cursor="pointer">
                 <Avatar
                   size="sm"
-                  src={!loading && session && session.user.image}
-                  name={!loading && session && session.user.name}
+                  src={!loading && session.user && session.user.image}
+                  name={!loading && session.user && session.user.name}
                 />
                 <Text fontWeight="bold" d={{ base: "none", md: "block" }}>
-                  {!loading && session && session.user.name}
+                  {!loading && session.user && session.user.name}
                 </Text>
               </HStack>
             </PopoverTrigger>
             <PopoverContent>
               <PopoverBody>
                 <Stack spacing="20px" align="center" pos="relative" p="20px">
-                  <Avatar size="lg" src="https://bit.ly/dan-abamov" />
+                  <Avatar
+                    size="lg"
+                    src={!loading && session.user && session.user.image}
+                    name={!loading && session.user && session.user.name}
+                  />
                   <Stack spacing="0.5" textAlign="center" align="center">
                     <Text fontWeight="bold">
-                      {!loading && session && session.user.name}
+                      {!loading && session.user && session.user.name}
                     </Text>
                     <Text color="gray.400" fontWeight="light">
-                      {!loading && session && session.user.email}
+                      {!loading && session.user && session.user.email}
                     </Text>
                   </Stack>
 

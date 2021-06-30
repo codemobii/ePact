@@ -3,7 +3,7 @@ import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
 import BgIllustration from "../helpers/bg_illus.helper";
 
-export default function Loader({ loading = false }) {
+export default function LoaderLayout({ loading = false }) {
   return (
     loading && (
       <Center

@@ -10,7 +10,7 @@ export default function ProjectDesc(props) {
   const { article } = props;
   console.log(props);
   return (
-    <MainLayout title={`News - ${article.title}`}>
+    <MainLayout title={`${article.title} - News`}>
       <BreadcrumbAddon
         title={article.title}
         links={["Home", "News", "Discover"]}

@@ -10,6 +10,7 @@ export default function CardLayout({ children }) {
       rounded="md"
       border="1px"
       overflowX="hidden"
+      pos="relative"
       borderColor="gray.200"
     >
       {children}

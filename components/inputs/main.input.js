@@ -6,11 +6,22 @@ export default function MainInput({
   label = "",
   isRequired = false,
   type = "email",
+  read = false,
+  value = "",
+  onChange = () => {
+    //
+  },
 }) {
   return (
-    <FormControl id={id} isRequired={isRequired}>
+    <FormControl id={id} isReadOnly={read} isRequired={isRequired}>
       <FormLabel>{label}</FormLabel>
-      <Input borderColor="green.400" border="2px" type={type} />
+      <Input
+        borderColor="green.400"
+        onChange={onChange}
+        value={value}
+        border="2px"
+        type={type}
+      />
       {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
     </FormControl>
   );

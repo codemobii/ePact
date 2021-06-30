@@ -122,7 +122,7 @@ export default function ProjectsAddon({
                     <Box as="span">
                       <OutlineButton
                         title="Invest"
-                        link={`/account/projects/invest/${e.id}`}
+                        link={`/account/invest/${e._id}`}
                       />
                     </Box>
                   </Stack>

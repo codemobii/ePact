@@ -31,7 +31,7 @@ export default function BottombarLayout() {
             key={i}
           >
             {e.icon}
-            <Text>{e.label}</Text>
+            <Text fontSize="sm">{e.label}</Text>
           </Stack>
         ))}
       </SimpleGrid>
