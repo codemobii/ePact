@@ -22,7 +22,7 @@ export default function AccountLayout(props) {
   if (typeof window !== "undefined" && loading) return null;
 
   if (typeof window !== "undefined" && !session) {
-    window.location.href = "/";
+    window.location.href = "/api/auth/signin";
     signIn();
   }
 
