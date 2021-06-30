@@ -52,12 +52,12 @@ const NAV_LINKS = [
   },
   {
     label: "News",
-    href: "/account",
+    href: "/news",
     icon: <BsArrowClockwise size="20px" />,
   },
   {
     label: "Feedback",
-    href: "/account/notifications",
+    href: "/contact",
     icon: <BsAppIndicator size="18px" />,
   },
 ];
